@@ -33,14 +33,6 @@ Rotates the robot clockwise, 90 degrees to the right.
 
 Displays the X and Y coordinates and orientation of the robot.
 
-```
-PLACE X,Y,F
-MOVE
-LEFT
-RIGHT
-REPORT
-```
-
 Installation
 ------------
 
@@ -61,7 +53,7 @@ Running the Program
 Example Commands
 ----------------
 
-Entering the following commands:
+Entering the following commands...
 
 ```
 PLACE 1,2,EAST
@@ -73,7 +65,7 @@ LEFT
 REPORT
 ```
 
-Produces the following report:
+...produces the following report:
 
 `2,0,EAST`
 
