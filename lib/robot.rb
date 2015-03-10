@@ -20,14 +20,8 @@ class Robot
       if ORIENTATIONS.include?(intended_orientation)
         @orientation = intended_orientation
         @placed = true
-        output = "The robot was successfully placed on the table."
-      else
-        output = "The robot must be facing a valid direction."
       end
-    else
-      output = "The robot must be placed within the dimensions of the table."
     end
-    output
   end
 
   def move_forward
@@ -44,21 +38,13 @@ class Robot
         intended_x_position = @x_position + 1
       when :west
         intended_x_position = @x_position - 1
-      else
-        output = "Invalid orientation."
       end
 
       if @table.on_surface?(intended_x_position, intended_y_position)
         @x_position = intended_x_position
         @y_position = intended_y_position
-        output = "The robot moved #{@orientation}."
-      else
-        output = "The robot cannot be moved off the table surface."
       end
-    else
-      output = "The robot cannot be moved until it is placed."
     end
-    output
   end
 
   def turn(direction)
@@ -66,26 +52,14 @@ class Robot
       case direction
       when :left
         @orientation = ORIENTATIONS[ORIENTATIONS.index(@orientation) - 1]
-        output = "The robot turned left and is now facing #{@orientation}."
       when :right
         @orientation = ORIENTATIONS[ORIENTATIONS.index(@orientation) - (
           ORIENTATIONS.count - 1)]
-        output = "The robot turned right and is now facing #{@orientation}."
-      else
-        output = "Invalid turning direction."
       end
-    else
-      output = "The robot cannot be turned until it is placed."
     end
-    output
   end
 
   def show_report
-    if @placed
-      output = "#{@x_position},#{@y_position},#{@orientation.upcase}"
-    else
-      output = "The robot has not been placed on the table yet."
-    end
-    output
+    "#{@x_position},#{@y_position},#{@orientation.upcase}" if @placed
   end
 end

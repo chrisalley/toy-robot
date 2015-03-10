@@ -77,18 +77,11 @@ RSpec.describe RobotController do
           end
         end
 
-        context "REPORT command is entered" do
+        pending context "REPORT command is entered" do
           it "returns the current position of the robot" do
             expect(@robot_controller.execute_command("REPORT"))
               .to eq "0,0,NORTH"
           end
-        end
-      end
-
-      context "an invalid command is entered" do
-        it "returns an error message" do
-          expect(@robot_controller.execute_command("FOOBAR"))
-            .to eq "Ignoring invalid command."
         end
       end
     end

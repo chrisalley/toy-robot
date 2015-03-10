@@ -11,8 +11,7 @@ class RobotController
     puts "Type a command:"
     command = STDIN.gets
     while command
-      output = self.execute_command(command)
-      puts "#{output}\n"
+      self.execute_command(command)
       puts "Type another command:"
       command = STDIN.gets
     end
@@ -24,19 +23,16 @@ class RobotController
 
     case command_word
     when 'PLACE'
-      output = place_robot(command_arguments)
+      place_robot(command_arguments)
     when 'MOVE'
-      output = @robot.move_forward
+      @robot.move_forward
     when 'LEFT'
-      output = @robot.turn :left
+      @robot.turn :left
     when 'RIGHT'
-      output = @robot.turn :right
+      @robot.turn :right
     when 'REPORT'
-      output = @robot.show_report
-    else
-      output = "Ignoring invalid command."
+      puts "#{@robot.show_report}\n"
     end
-    output
   end
 
   def place_robot(command_arguments)
@@ -44,17 +40,10 @@ class RobotController
       args = command_arguments.split ','
       if args.count == 3
         if args[0] =~ /^\d+$/ and args[1] =~ /^\d+$/
-          output = @robot.place(args[0].to_i, args[1].to_i,
-            args[2].downcase.to_sym)
-        else
-          output = "X and Y coordinates must be integers."
+          @robot.place(args[0].to_i, args[1].to_i, args[2].downcase.to_sym)
+          true if @robot.placed
         end
-      else
-        output = "Wrong number of placement argumnets."
       end
-    else
-      output = "Must specify at least one argument with PLACE command."
     end
-    output
   end
 end
