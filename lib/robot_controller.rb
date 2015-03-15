@@ -23,7 +23,7 @@ class RobotController
 
     case command_word
     when 'PLACE'
-      place_robot(command_arguments)
+      @robot.place command_arguments
     when 'MOVE'
       @robot.move_forward
     when 'LEFT'
@@ -31,19 +31,7 @@ class RobotController
     when 'RIGHT'
       @robot.turn :right
     when 'REPORT'
-      puts "#{@robot.show_report}\n"
-    end
-  end
-
-  def place_robot(command_arguments)
-    if command_arguments
-      args = command_arguments.split ','
-      if args.count == 3
-        if args[0] =~ /^\d+$/ and args[1] =~ /^\d+$/
-          @robot.place(args[0].to_i, args[1].to_i, args[2].downcase.to_sym)
-          true if @robot.placed
-        end
-      end
+      puts "#{@robot.show_report}"
     end
   end
 end

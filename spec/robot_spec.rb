@@ -9,28 +9,28 @@ RSpec.describe Robot do
 
       context "the placement position is valid" do
         it "places the robot on the table" do
-          @robot.place 0, 0, :north
+          @robot.place "0,0,NORTH"
           expect(@robot.placed).to be true
         end
       end
 
       context "orientation is not north, south, east, or west" do
         it "does not place the robot on the table" do
-          @robot.place 0, 0, :north_west
+          @robot.place "0,0,NORTHWEST"
           expect(@robot.placed).to be false
         end
       end
 
       context "x position is outside of the table surface" do
         it "does not place the robot on the table" do
-          @robot.place 5, 0, :north
+          @robot.place "5,0,NORTH"
           expect(@robot.placed).to be false
         end
       end
 
       context "y position is outside of the table surface" do
         it "does not place the robot on the table" do
-          @robot.place 0, 5, :north
+          @robot.place "0,5,NORTH"
           expect(@robot.placed).to be false
         end
       end
@@ -43,7 +43,7 @@ RSpec.describe Robot do
 
       context "the robot's orientation is north" do
         it "moves the robot north one space" do
-          @robot.place 0, 0, :north
+          @robot.place "0,0,NORTH"
           @robot.move_forward
           expect(@robot.y_position).to eq 1
         end
@@ -51,7 +51,7 @@ RSpec.describe Robot do
 
       context "the robot's orientation is east" do
         it "moves the robot east one space" do
-          @robot.place 0, 0, :east
+          @robot.place "0,0,EAST"
           @robot.move_forward
           expect(@robot.x_position).to eq 1
         end
@@ -59,7 +59,7 @@ RSpec.describe Robot do
 
       context "the robot's orientation is south" do
         it "moves the robot south one space" do
-          @robot.place 1, 1, :south
+          @robot.place "1,1,SOUTH"
           @robot.move_forward
           expect(@robot.y_position).to eq 0
         end
@@ -67,7 +67,7 @@ RSpec.describe Robot do
 
       context "the robot's orientation is west" do
         it "moves the robot west one space" do
-          @robot.place 1, 1, :west
+          @robot.place "1,1,WEST"
           @robot.move_forward
           expect(@robot.x_position).to eq 0
         end
@@ -75,13 +75,13 @@ RSpec.describe Robot do
 
       context "orientation is not north, south, east, or west" do
         it "does not move the robot horizontally" do
-          @robot.place 0, 0, :foobar
+          @robot.place "0,0,FOOBAR"
           @robot.move_forward
           expect(@robot.x_position).to be 0
         end
 
         it "does not move the robot vertically" do
-          @robot.place 0, 0, :foobar
+          @robot.place "0,0,FOOBAR"
           @robot.move_forward
           expect(@robot.y_position).to be 0
         end
@@ -89,7 +89,7 @@ RSpec.describe Robot do
 
       context "intended x position is outside of the table surface" do
         it "does not move the robot horizontally" do
-          @robot.place 4, 0, :east
+          @robot.place "4,0,EAST"
           @robot.move_forward
           expect(@robot.x_position).to be 4
         end
@@ -97,7 +97,7 @@ RSpec.describe Robot do
 
       context "intended y position is outside of the table surface" do
         it "does not move the robot vertically" do
-          @robot.place 0, 4, :north
+          @robot.place "0,4,NORTH"
           @robot.move_forward
           expect(@robot.y_position).to be 4
         end
@@ -111,7 +111,7 @@ RSpec.describe Robot do
 
       context "robot is facing north" do
         before do
-          @robot.place 0, 0, :north
+          @robot.place "0,0,NORTH"
         end
 
         context "specified direction is left" do
@@ -131,7 +131,7 @@ RSpec.describe Robot do
 
       context "robot is facing east" do
         before do
-          @robot.place 0, 0, :east
+          @robot.place "0,0,EAST"
         end
 
         context "specified direction is left" do
@@ -151,7 +151,7 @@ RSpec.describe Robot do
 
       context "robot is facing south" do
         before do
-          @robot.place 0, 0, :south
+          @robot.place "0,0,SOUTH"
         end
 
         context "specified direction is left" do
@@ -171,7 +171,7 @@ RSpec.describe Robot do
 
       context "robot is facing west" do
         before do
-          @robot.place 0, 0, :west
+          @robot.place "0,0,WEST"
         end
 
         context "specified direction is left" do
@@ -197,14 +197,8 @@ RSpec.describe Robot do
 
       context "robot is already placed" do
         it "displays the robot's position" do
-          @robot.place 0, 0, :north
+          @robot.place "0,0,NORTH"
           expect(@robot.show_report).to eq "0,0,NORTH"
-        end
-      end
-
-      context "robot is not yet placed" do
-        it "does not display the robot's position" do
-          expect(@robot.show_report).not_to eq "nil,nil,nil"
         end
       end
     end

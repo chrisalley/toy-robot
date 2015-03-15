@@ -13,13 +13,18 @@ class Robot
     @orientation = nil
   end
 
-  def place(intended_x_position, intended_y_position, intended_orientation)
-    if @table.on_surface?(intended_x_position, intended_y_position)
-      @x_position = intended_x_position
-      @y_position = intended_y_position
-      if ORIENTATIONS.include?(intended_orientation)
-        @orientation = intended_orientation
-        @placed = true
+  def place(command_arguments)
+    position = command_arguments.split ','
+    if position.count == 3
+      if position[0] =~ /^\d+$/ and position[1] =~ /^\d+$/
+        if @table.on_surface?(position[0].to_i, position[1].to_i)
+          @x_position = position[0].to_i
+          @y_position = position[1].to_i
+          if ORIENTATIONS.include?(position[2].downcase.to_sym)
+            @orientation = position[2].downcase.to_sym
+            @placed = true
+          end
+        end
       end
     end
   end
