@@ -9,29 +9,29 @@ RSpec.describe Robot do
 
       context "the placement position is valid" do
         it "places the robot on the table" do
-          @robot.place "0,0,NORTH"
-          expect(@robot.placed).to be true
+          @robot.place "0,1,NORTH"
+          expect(@robot.show_report).to eq "0,1,NORTH"
         end
       end
 
       context "orientation is not north, south, east, or west" do
         it "does not place the robot on the table" do
           @robot.place "0,0,NORTHWEST"
-          expect(@robot.placed).to be false
+          expect(@robot.show_report).not_to eq "0,0,NORTHWEST"
         end
       end
 
       context "x position is outside of the table surface" do
         it "does not place the robot on the table" do
           @robot.place "5,0,NORTH"
-          expect(@robot.placed).to be false
+          expect(@robot.show_report).not_to eq "5,0,NORTH"
         end
       end
 
       context "y position is outside of the table surface" do
         it "does not place the robot on the table" do
           @robot.place "0,5,NORTH"
-          expect(@robot.placed).to be false
+          expect(@robot.show_report).not_to eq "0,5,NORTH"
         end
       end
     end
@@ -73,25 +73,11 @@ RSpec.describe Robot do
         end
       end
 
-      context "orientation is not north, south, east, or west" do
-        it "does not move the robot horizontally" do
-          @robot.place "0,0,FOOBAR"
-          @robot.move_forward
-          expect(@robot.x_position).to be 0
-        end
-
-        it "does not move the robot vertically" do
-          @robot.place "0,0,FOOBAR"
-          @robot.move_forward
-          expect(@robot.y_position).to be 0
-        end
-      end
-
       context "intended x position is outside of the table surface" do
         it "does not move the robot horizontally" do
           @robot.place "4,0,EAST"
           @robot.move_forward
-          expect(@robot.x_position).to be 4
+          expect(@robot.x_position).to eq 4
         end
       end
 
@@ -99,7 +85,7 @@ RSpec.describe Robot do
         it "does not move the robot vertically" do
           @robot.place "0,4,NORTH"
           @robot.move_forward
-          expect(@robot.y_position).to be 4
+          expect(@robot.y_position).to eq 4
         end
       end
     end
@@ -198,6 +184,12 @@ RSpec.describe Robot do
       context "robot is already placed" do
         it "displays the robot's position" do
           @robot.place "0,0,NORTH"
+          expect(@robot.show_report).to eq "0,0,NORTH"
+        end
+      end
+
+      context "robot is not yet placed on the table" do
+        it "displays the robot's position (after implicting placing it)" do
           expect(@robot.show_report).to eq "0,0,NORTH"
         end
       end

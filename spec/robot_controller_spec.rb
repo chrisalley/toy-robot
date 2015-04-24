@@ -17,26 +17,26 @@ RSpec.describe RobotController do
         end
 
         context "MOVE command is entered followed by the REPORT command" do
-          it "ignores the command" do
+          it "reports that the robot has moved north one place on the table" do
             @robot_controller.execute_command "MOVE"
             expect { @robot_controller.execute_command("REPORT") }
-              .to output("\n").to_stdout
+              .to output("0,1,NORTH\n").to_stdout
           end
         end
 
         context "LEFT command is entered followed by the REPORT command" do
-          it "ignores the command" do
+          it "reports that the robot is now facing the west" do
             @robot_controller.execute_command "LEFT"
             expect { @robot_controller.execute_command("REPORT") }
-              .to output("\n").to_stdout
+              .to output("0,0,WEST\n").to_stdout
           end
         end
 
         context "RIGHT command is entered followed by the REPORT command" do
-          it "ignores the command" do
+          it "reports that the robot is now facing the east" do
             @robot_controller.execute_command "RIGHT"
             expect { @robot_controller.execute_command("REPORT") }
-              .to output("\n").to_stdout
+              .to output("0,0,EAST\n").to_stdout
           end
         end
       end

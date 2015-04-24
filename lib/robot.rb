@@ -7,10 +7,10 @@ class Robot
 
   def initialize
     @table = Table.new
-    @placed = false
-    @x_position = nil
-    @y_position = nil
-    @orientation = nil
+    @placed = true
+    @x_position = 0
+    @y_position = 0
+    @orientation = :north
   end
 
   def place(command_arguments)
@@ -30,41 +30,37 @@ class Robot
   end
 
   def move_forward
-    if @placed
-      intended_x_position = @x_position
-      intended_y_position = @y_position
+    intended_x_position = @x_position
+    intended_y_position = @y_position
 
-      case @orientation
-      when :north
-        intended_y_position = @y_position + 1
-      when :south
-        intended_y_position = @y_position - 1
-      when :east
-        intended_x_position = @x_position + 1
-      when :west
-        intended_x_position = @x_position - 1
-      end
+    case @orientation
+    when :north
+      intended_y_position = @y_position + 1
+    when :south
+      intended_y_position = @y_position - 1
+    when :east
+      intended_x_position = @x_position + 1
+    when :west
+      intended_x_position = @x_position - 1
+    end
 
-      if @table.on_surface?(intended_x_position, intended_y_position)
-        @x_position = intended_x_position
-        @y_position = intended_y_position
-      end
+    if @table.on_surface?(intended_x_position, intended_y_position)
+      @x_position = intended_x_position
+      @y_position = intended_y_position
     end
   end
 
   def turn(direction)
-    if @placed
-      case direction
-      when :left
-        @orientation = ORIENTATIONS[ORIENTATIONS.index(@orientation) - 1]
-      when :right
-        @orientation = ORIENTATIONS[ORIENTATIONS.index(@orientation) - (
-          ORIENTATIONS.count - 1)]
-      end
+    case direction
+    when :left
+      @orientation = ORIENTATIONS[ORIENTATIONS.index(@orientation) - 1]
+    when :right
+      @orientation = ORIENTATIONS[ORIENTATIONS.index(@orientation) - (
+        ORIENTATIONS.count - 1)]
     end
   end
 
   def show_report
-    "#{@x_position},#{@y_position},#{@orientation.upcase}" if @placed
+    "#{@x_position},#{@y_position},#{@orientation.upcase}"
   end
 end
