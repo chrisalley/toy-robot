@@ -77,13 +77,13 @@ RSpec.describe Robot do
         it "does not move the robot horizontally" do
           @robot.place "0,0,FOOBAR"
           @robot.move_forward
-          expect(@robot.x_position).to be 0
+          expect(@robot.x_position).to eq 0
         end
 
         it "does not move the robot vertically" do
           @robot.place "0,0,FOOBAR"
           @robot.move_forward
-          expect(@robot.y_position).to be 0
+          expect(@robot.y_position).to eq 0
         end
       end
 
@@ -91,7 +91,7 @@ RSpec.describe Robot do
         it "does not move the robot horizontally" do
           @robot.place "4,0,EAST"
           @robot.move_forward
-          expect(@robot.x_position).to be 4
+          expect(@robot.x_position).to eq 4
         end
       end
 
@@ -99,7 +99,7 @@ RSpec.describe Robot do
         it "does not move the robot vertically" do
           @robot.place "0,4,NORTH"
           @robot.move_forward
-          expect(@robot.y_position).to be 4
+          expect(@robot.y_position).to eq 4
         end
       end
     end
